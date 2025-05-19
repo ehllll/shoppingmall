@@ -12,10 +12,7 @@ public class ShoppingmallApplication {
 		SpringApplication.run(ShoppingmallApplication.class, args);
 	}
 
-	@Bean
-	CommandLineRunner init() {
-		return args -> System.out.println("📦 Spring Boot 실행됨!");
-	}
+
 }
 
 
