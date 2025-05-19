@@ -40,4 +40,11 @@ public class User extends BaseEntity {
 	@Column(name = "authority", nullable = false)
 	private UserAuthority userAuthority = UserAuthority.USER;
 
+	public User(String nickName, String email, String password, String address, UserAuthority userAuthority) {
+		this.nickName = nickName;
+		this.email = email;
+		this.password = password;
+		this.address = address;
+		this.userAuthority = userAuthority;
+	}
 }
