@@ -26,9 +26,9 @@ public class BoardController {
 	private final BoardService boardService;
 
 	@PostMapping("/stores/{storeId}/boards")
-	public ResponseEntity<BoardRequestDto> createPost(@PathVariable Long storeId, @RequestBody BoardRequestDto boardRequestDto) {
+	public ResponseEntity<BoardResponseDto> createPost(@PathVariable Long storeId, @RequestBody BoardRequestDto boardRequestDto) {
 		BoardResponseDto boardResponseDto = BoardService.createPost(storeId, boardRequestDto);
-		ResponseEntity.status(HttpStatus.CREATED).body(boardResponseDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(boardResponseDto);
 	}
 
 	@GetMapping("/stores/{storeId}/boards/{boardId}")
