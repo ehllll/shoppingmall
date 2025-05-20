@@ -1,10 +1,12 @@
 package com.example.shoppingmall.domain.user.service;
 
 import com.example.shoppingmall.domain.user.dto.request.SignUpRequestDto;
+import com.example.shoppingmall.domain.user.dto.request.UpdatePasswordRequestDto;
 import com.example.shoppingmall.domain.user.dto.response.SignUpResponseDto;
 import com.example.shoppingmall.domain.user.entity.User;
 import com.example.shoppingmall.domain.user.repository.UserRepository;
 import com.example.shoppingmall.global.common.config.PasswordEncoder;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     @Override // 회원가입
     public SignUpResponseDto signUp(SignUpRequestDto requestDto) {
 
@@ -52,4 +55,20 @@ public class UserServiceImpl implements UserService {
                 , savedUser.getUpdatedAt());
     }
 
+    @Transactional
+    @Override
+    public void updatePassword(Long id, UpdatePasswordRequestDto requestDto) {
+
+        //유저가 있는지 확인한다.
+        User user = userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (!user.getId().equals(id)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        //기존 비밀번호와 내가 새로 바꿀 비밀번호가 같은지 확인한다.
+        if (passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"비밀번호가 같습니다.");
+        }
+        user.updatePassword(requestDto.getPassword());
+    }
 }

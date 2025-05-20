@@ -47,4 +47,10 @@ public class User extends BaseEntity {
 		this.address = address;
 		this.userAuthority = userAuthority;
 	}
+
+	public void updatePassword(String newPassword) {
+		this.password = newPassword;
+	}
+
+
 }
