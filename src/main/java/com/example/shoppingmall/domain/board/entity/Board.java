@@ -23,5 +23,5 @@ public class Board extends BaseEntity {
 	private String title;
 	private String content;
 
-
 }
+

@@ -12,4 +12,6 @@ import lombok.NoArgsConstructor;
 public class BoardUpdateRequestDto {
 	private String title;
 	private String content;
+
 }
+

@@ -11,4 +11,6 @@ import lombok.RequiredArgsConstructor;
 public class BoardServiceImpl implements BoardService{
 
 	private final BoardRepository boardRepository;
+
 }
+

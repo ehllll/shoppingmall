@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.shoppingmall.domain.board.dto.BoardRequestDto;
 import com.example.shoppingmall.domain.board.dto.BoardResponseDto;
 import com.example.shoppingmall.domain.board.dto.BoardUpdateRequestDto;
+
 import com.example.shoppingmall.domain.board.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -55,3 +56,4 @@ public class BoardController {
 		return ResponseEntity.ok("문의사항 삭제 완료");
 	}
 }
+
