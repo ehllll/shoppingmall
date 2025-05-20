@@ -2,6 +2,7 @@ package com.example.shoppingmall.domain.bookmark.entity;
 
 import com.example.shoppingmall.domain.store.entity.Store;
 import com.example.shoppingmall.domain.user.entity.User;
+import com.example.shoppingmall.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "bookmark")
 @NoArgsConstructor
-public class Bookmark {
+public class Bookmark extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
