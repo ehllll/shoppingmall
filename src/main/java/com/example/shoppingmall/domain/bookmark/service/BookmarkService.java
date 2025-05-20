@@ -47,4 +47,10 @@ public class BookmarkService {
         }
         return result;
     }
+
+    public void deleteBookmark(Long storeId, Long userId) {
+        Bookmark bookmark = bookmarkRepository.findByUserIdAndStoreId(userId,storeId)
+                        .orElseThrow(()->new RuntimeException("삭제할 북마크가 없습니다"));
+        bookmarkRepository.delete(bookmark);
+    }
 }
