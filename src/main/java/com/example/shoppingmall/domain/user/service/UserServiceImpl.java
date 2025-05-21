@@ -1,9 +1,8 @@
 package com.example.shoppingmall.domain.user.service;
 
 import com.example.shoppingmall.domain.user.dto.request.SignUpRequestDto;
-import com.example.shoppingmall.domain.user.dto.request.SigninRequestDto;
+import com.example.shoppingmall.domain.user.dto.request.SignInRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.UpdatePasswordRequestDto;
-import com.example.shoppingmall.domain.user.dto.response.SignUpResponseDto;
 import com.example.shoppingmall.domain.user.dto.response.TokenResponse;
 import com.example.shoppingmall.domain.user.entity.RefreshToken;
 import com.example.shoppingmall.domain.user.entity.User;
@@ -91,9 +90,42 @@ public class UserServiceImpl implements UserService {
         user.updatePassword(requestDto.getPassword());
     }
 
+    @Transactional
     @Override
-    public TokenResponse login(SigninRequestDto requestDto) {
+    public TokenResponse signIn(SignInRequestDto requestDto) {
 
+        //유저가 있는지 찾는다
+        User user = userRepository.findByUsername(requestDto.username()).orElseThrow(() -> new IllegalArgumentException("존재하지 않은 사용자입니다."));
 
+        //만약 요청한 비밀번호와 유져의 비밀번호가 같지 않다면? 예외처리를 한다.
+        if (!passwordEncoder.matches(requestDto.password(), user.getPassword())) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
+
+        //유저가 있으면 getId()를 통해 토큰이 있는지 확인한다.
+        RefreshToken refreshTokenEntity  = refreshTokenRepository.findByUserId(user.getId()).orElseThrow(() -> new IllegalArgumentException("토큰이 존재하지 않습니다."));
+
+        //Access Token을 초기값으로 빈 문자열을 만든다.
+        String accessToken = "";
+
+        //DB에서 조회해온 RefreshToken값을 가져온다.
+        String refreshToken = refreshTokenEntity.getToken();
+
+        //만약 refreshToken이 유효하다면?
+        if (jwtUtil.isvalidRefreshToken(refreshToken)) {
+            // 새로운 accessToken을 생성
+            accessToken = jwtUtil.createAccessToken(user);
+            // Access Token과 Refresh Token을 반환 (로그인 성공)
+            return new TokenResponse(accessToken, refreshToken);
+        } else {//만약 그렇지 않다면 ?
+            // 새로운 Refresh Token ,access Token 을 생성
+            refreshToken = jwtUtil.createRefreshToken(user);
+            // RefreshToken 엔티티 객체를 업데이트 (새로운 Refresh Token 값 저장)
+            refreshTokenEntity.updateToken(refreshToken);
+            accessToken = jwtUtil.createAccessToken(user);
+        }
+
+        //새로 생성된 Access Token과 Refresh Token을 응답 객체에 담아서 반환
+        return new TokenResponse(accessToken, refreshToken);
     }
 }
