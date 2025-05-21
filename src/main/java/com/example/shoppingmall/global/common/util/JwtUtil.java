@@ -59,7 +59,6 @@ public class JwtUtil {
     * */
     public String createRefreshToken(User user) {
 
-
         return Jwts.builder()
                 // 토큰안에 사용자 이메일 정보를 담음
                 .claim("username", user.getUsername())
@@ -98,7 +97,7 @@ public class JwtUtil {
     private Claims getClaimsToken(String token) {
 
         //JWT를 파싱(풀이해석)하기위한 빌더를 생성
-        return Jwts.parser()
+        Claims payload = Jwts.parser()
 
                 //JWT 서명을 검증하기 위해 사용한다.
                 //입력받은 토큰이 위조되지 않았는지, 서명이 유요한지를 확인한다.
@@ -112,5 +111,6 @@ public class JwtUtil {
 
                 //Claims 객체에서 실제 데이터를 추출한다.
                 .getPayload();
+        return payload;
     }
 }

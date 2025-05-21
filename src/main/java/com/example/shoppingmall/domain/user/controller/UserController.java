@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponseDto<Void>> logout() {
+    public ResponseEntity<ApiResponseDto<Void>> logout(리프레쉬 토큰) {
 
 
 
