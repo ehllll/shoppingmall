@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -126,4 +128,12 @@ public class UserServiceImpl implements UserService {
         return new TokenResponse(accessToken, refreshToken);
     }
 
+    @Override
+    public void logout(String refreshToken) {
+
+        RefreshToken findRefreshToken = refreshTokenRepository.findByRefreshToken(refreshToken).orElseThrow(() -> new IllegalArgumentException("로그아웃 되었습니다"));
+
+
+        refreshTokenRepository.delete(findRefreshToken);
+    }
 }

@@ -4,6 +4,8 @@ import com.example.shoppingmall.domain.user.dto.request.SignInRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.SignUpRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.UpdatePasswordRequestDto;
 import com.example.shoppingmall.domain.user.dto.response.TokenResponse;
+import com.example.shoppingmall.domain.user.entity.RefreshToken;
+import com.example.shoppingmall.domain.user.entity.User;
 import com.example.shoppingmall.domain.user.service.UserService;
 import com.example.shoppingmall.global.common.enums.SuccessCode;
 import com.example.shoppingmall.global.common.response.ApiResponseDto;
@@ -43,9 +45,9 @@ public class UserController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponseDto<Void>> logout(리프레쉬 토큰) {
+    public ResponseEntity<ApiResponseDto<Void>> logout(@RequestBody String refreshToken ) {
 
-
+        userService.logout(refreshToken);
 
         return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.LOGOUT_SUCCESS, null));
     }
