@@ -22,7 +22,7 @@ public class StoreController {
 
 	@GetMapping
 	public ResponseEntity<List<Store>> getStores(
-		@RequestParam(required = false) Double rating,
+		@RequestParam(required = false) Long rating,
 		@RequestParam(required = false) String status) {
 
 		List<Store> stores = storeService.getFilteredStores(rating, status);

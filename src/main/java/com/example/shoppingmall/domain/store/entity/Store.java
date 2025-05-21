@@ -10,10 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "stores")
@@ -26,18 +24,18 @@ public class Store {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "companyName")
+	@Column(name = "company_name")
 	private String companyName;
 
-	@Column(name = "storeName")
+	@Column(name = "store_name")
 	private String storeName;
 
-	@Column(name = "totalRating")
-	private Double rating; // 전체평가
+	@Column(name = "total_rating")
+	private Long rating; // 전체평가
 
-	@Column(name = "businessStatus")
+	@Column(name = "business_status")
 	private String status; // 업소상태
 
-	@Column(name = "monitoringDate")
+	@Column(name = "monitoring_date")
 	private LocalDate monitoringDate; // 모니터링날짜
 }

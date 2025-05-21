@@ -11,6 +11,6 @@ import com.example.shoppingmall.domain.store.entity.Store;
 public interface StoreRepository extends JpaRepository<Store, Long> {
 
 	@Query("SELECT s FROM Store s WHERE (:rating IS NULL OR s.rating = :rating) AND (:status IS NULL OR s.status = :status) ORDER BY s.monitoringDate DESC")
-	List<Store> findFilteredStores(@Param("rating") Double rating, @Param("status") String status, Pageable pageable);
+	List<Store> findFilteredStores(@Param("rating") Long rating, @Param("status") String status, Pageable pageable);
 }
 

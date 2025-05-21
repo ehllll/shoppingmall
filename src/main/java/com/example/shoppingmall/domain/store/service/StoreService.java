@@ -16,7 +16,7 @@ public class StoreService {
 
 	private final StoreRepository storeRepository;
 
-	public List<Store> getFilteredStores(Double rating, String status) {
+	public List<Store> getFilteredStores(Long rating, String status) {
 		Pageable top10 = PageRequest.of(0, 10);
 		return storeRepository.findFilteredStores(rating, status, top10);
 	}
