@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         }
 
         //비밀번호가 존재하면?-->예외처리  (repository단에서 메서드를 하나 만들어서 사용한다.)
-        if (userRepository.existsByEmail(requestDto.getUsername())) {
+        if (userRepository.existsByUsername(requestDto.getUsername())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 존재하는 이메일입니다.");
         }
 

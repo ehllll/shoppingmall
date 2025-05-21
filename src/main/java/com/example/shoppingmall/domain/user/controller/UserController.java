@@ -41,4 +41,12 @@ public class UserController {
 
         return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.LOGIN_SUCCESS, signinDto));
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponseDto<Void>> logout() {
+
+
+
+        return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.LOGOUT_SUCCESS, null));
+    }
 }

@@ -12,6 +12,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
 
+//토큰을 발행하고 토큰이 올바른지 검사하는 클래스이다.
 @Component
 public class JwtUtil {
 
@@ -57,6 +58,7 @@ public class JwtUtil {
     * Aceess Token이 만료 되었을 때 다시 로그인하지 않고도 새 액세스 토큰을 발급받을 수 있게 해주는 토근이다.
     * */
     public String createRefreshToken(User user) {
+
 
         return Jwts.builder()
                 // 토큰안에 사용자 이메일 정보를 담음
@@ -111,5 +113,4 @@ public class JwtUtil {
                 //Claims 객체에서 실제 데이터를 추출한다.
                 .getPayload();
     }
-
 }
