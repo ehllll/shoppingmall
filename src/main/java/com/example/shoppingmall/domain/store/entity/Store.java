@@ -42,6 +42,14 @@ public class Store {
 	@Column(name = "monitoring_date")
 	private LocalDate monitoringDate; // 모니터링날짜
 
+	public Store(String companyName, String storeName, Long rating, String status, LocalDate monitoringDate) {
+		this.companyName = companyName;
+		this.storeName = storeName;
+		this.rating = rating;
+		this.status = status;
+		this.monitoringDate = monitoringDate;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
