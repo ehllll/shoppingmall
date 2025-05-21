@@ -1,9 +1,7 @@
 package com.example.shoppingmall.domain.bookmark.controller;
 
-import com.example.shoppingmall.domain.bookmark.dto.request.BookmarkRequestDto;
 import com.example.shoppingmall.domain.bookmark.dto.response.BookmarkResponseDto;
 import com.example.shoppingmall.domain.bookmark.service.BookmarkService;
-import com.example.shoppingmall.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,23 +17,27 @@ public class BookmarkController {
 
     private final BookmarkService bookmarkService;
 
+    //  즐겨찾기 추가
     @PostMapping("/stores/{storeId}/bookmarks")
-    ResponseEntity<Void> createBookmark(
-            @PathVariable Long storeId,
-            @RequestBody BookmarkRequestDto request
-    ){
-        bookmarkService.createBookmark(storeId,request);
+    public ResponseEntity<Void> createBookmark(@PathVariable Long storeId) {
+        Long userId = getCurrentUserId(); // JWT로부터 유저 ID 추출
+        bookmarkService.createBookmark(userId, storeId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    //즐겨찾기 목록 조회
     @GetMapping("/auths/me/bookmarks")
-    ResponseEntity<List<BookmarkResponseDto>> findBookmark(){
-        return ResponseEntity.ok(bookmarkService.findAll());
+    public ResponseEntity<List<BookmarkResponseDto>> findBookmark() {
+        Long userId = getCurrentUserId();
+        List<BookmarkResponseDto> result = bookmarkService.findAllByUser(userId);
+        return ResponseEntity.ok(result);
     }
+
+    //  즐겨찾기 삭제
     @DeleteMapping("/stores/{storeId}/bookmarks")
-    ResponseEntity<Void> deleteBookmark(@PathVariable Long storeId,  User loginUser){
-
-
-        bookmarkService.deleteBookmark(userId,storeId);
+    public ResponseEntity<Void> deleteBookmark(@PathVariable Long storeId) {
+        Long userId = getCurrentUserId();
+        bookmarkService.deleteBookmark(userId, storeId);
         return ResponseEntity.noContent().build();
     }
 

@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BookmarkResponseDto {
 
-    private Long userId;
-
     private Long storeId;
 
     private String storeName;
