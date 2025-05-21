@@ -35,10 +35,9 @@ public class UserController {
     }
 
     @PostMapping("/login") //로그인
-    public ResponseEntity<ApiResponseDto<Void>> login(@RequestBody LoginRequestDto dto) {
+    public ResponseEntity<ApiResponseDto<Void>> login(@RequestBody LoginRequestDto requestDto) {
 
-
-
+        userService.login(requestDto);
         return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.LOGIN_SUCCESS, null));
     }
 }

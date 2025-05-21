@@ -79,19 +79,36 @@ public class JwtUtil {
     * 만료되었거나 잘못된 토큰이라면 false로 반환한다.*/
     public boolean isvalidRefreshToken(String refreshToken) {
         try {
+            //Refresh Token에서 정보를 추출하는 함수
             getClaimsToken(refreshToken);
+            //유요한 토큰일 경우 true 반환
             return true;
         } catch (NullPointerException | JwtException e) {
             return false;
         }
     }
 
+    /*
+    token을 입력받고 claims라는 데이터를 추출한다.
+    Claims란?
+    → JWT 내부에 저장된 사용자 데이터, 토큰의 만료 시간 등과 같은 정보를 뜻한다.
+    * */
     private Claims getClaimsToken(String token) {
 
+        //JWT를 파싱(풀이해석)하기위한 빌더를 생성
         return Jwts.parser()
+
+                //JWT 서명을 검증하기 위해 사용한다.
+                //입력받은 토큰이 위조되지 않았는지, 서명이 유요한지를 확인한다.
                 .verifyWith(secretKey)
+
+                //준비된 파서를 빌드한다.
                 .build()
+
+                //입력받은 JWT토큰을 분석해 서명된 페이로드를 반환한다.
                 .parseSignedClaims(token)
+
+                //Claims 객체에서 실제 데이터를 추출한다.
                 .getPayload();
     }
 
