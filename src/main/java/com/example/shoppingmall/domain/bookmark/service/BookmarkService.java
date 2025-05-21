@@ -4,6 +4,7 @@ import com.example.shoppingmall.domain.bookmark.entity.Bookmark;
 import com.example.shoppingmall.domain.bookmark.repository.BookmarkRepository;
 import com.example.shoppingmall.domain.store.entity.Store;
 import com.example.shoppingmall.domain.user.entity.User;
+import com.example.shoppingmall.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
