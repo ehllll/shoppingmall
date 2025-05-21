@@ -1,0 +1,33 @@
+package com.example.shoppingmall.domain.user.entity;
+
+import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+//리프레쉬 토큰을 엔티티로 만들어 사용자와 맵핑해준다.
+@Entity
+@RequiredArgsConstructor
+@Getter
+public class RefreshToken {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    private Long id;
+
+    private String token;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Builder
+    public RefreshToken(String token, User user) {
+        this.token = token;
+        this.user = user;
+    }
+
+    public void updateToken(String token) {
+        this.token = token;
+    }
+}
