@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +24,22 @@ import com.example.shoppingmall.domain.store.service.StoreService;
 public class StoreController {
 
 	private final StoreService storeService;
+
+	@PostMapping("/delete")
+	public ResponseEntity<String> insertCsv(){
+		String filePath = "src/main/resources/stores.csv"; // 또는 절대 경로
+		storeService.resetStores();
+		return new ResponseEntity<>("입력완료",HttpStatus.OK);
+	}
+
+	@PostMapping("/collection")
+	public ResponseEntity<String> insertCsv_v2(){
+		System.out.println("INSERT 시작");
+		String filePath = "src/main/resources/stores.csv"; // 또는 절대 경로
+		storeService.importCsv(filePath);
+		System.out.println("INSERT 완료");
+		return new ResponseEntity<>("입력완료",HttpStatus.OK);
+	}
 
 	@GetMapping
 	public ResponseEntity<List<Store>> getStores(

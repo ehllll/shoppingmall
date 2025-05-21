@@ -1,6 +1,7 @@
 package com.example.shoppingmall.domain.store.entity;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,12 +11,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "stores")
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Store {
@@ -38,4 +41,17 @@ public class Store {
 
 	@Column(name = "monitoring_date")
 	private LocalDate monitoringDate; // 모니터링날짜
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Store store = (Store) o;
+		return Objects.equals(id, store.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
 }
