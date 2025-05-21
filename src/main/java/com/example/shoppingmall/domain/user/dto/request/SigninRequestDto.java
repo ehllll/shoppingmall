@@ -3,13 +3,13 @@ package com.example.shoppingmall.domain.user.dto.request;
 import lombok.Getter;
 
 @Getter
-public class LoginRequestDto {
+public class SigninRequestDto {
 
-    private final String email;
+    private final String username;
     private final String password;
 
-    public LoginRequestDto(String email, String password) {
-        this.email = email;
+    public SigninRequestDto(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 }

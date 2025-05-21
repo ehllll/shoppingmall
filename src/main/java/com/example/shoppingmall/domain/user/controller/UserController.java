@@ -1,9 +1,10 @@
 package com.example.shoppingmall.domain.user.controller;
 
-import com.example.shoppingmall.domain.user.dto.request.LoginRequestDto;
+import com.example.shoppingmall.domain.user.dto.request.SigninRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.SignUpRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.UpdatePasswordRequestDto;
 import com.example.shoppingmall.domain.user.dto.response.SignUpResponseDto;
+import com.example.shoppingmall.domain.user.dto.response.TokenResponse;
 import com.example.shoppingmall.domain.user.service.UserService;
 import com.example.shoppingmall.global.common.enums.SuccessCode;
 import com.example.shoppingmall.global.common.response.ApiResponseDto;
@@ -19,11 +20,11 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup") //회원가입
-    public ResponseEntity<ApiResponseDto<SignUpResponseDto>> signUp(@RequestBody SignUpRequestDto dto) {
+    public ResponseEntity<ApiResponseDto<TokenResponse>> signUp(@RequestBody SignUpRequestDto dto) {
 
-        SignUpResponseDto signUpResponseDto = userService.signUp(dto);
+        TokenResponse tokenResponse = userService.signUp(dto);
 
-        return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.USER_CREATE_SUCCESS, signUpResponseDto));
+        return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.USER_CREATE_SUCCESS, tokenResponse));
     }
 
     @PutMapping("/{id}") //비밀번호 업데이트
@@ -34,10 +35,11 @@ public class UserController {
         return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.USER_UPDATE_SUCCESS, null));
     }
 
-    @PostMapping("/login") //로그인
-    public ResponseEntity<ApiResponseDto<Void>> login(@RequestBody LoginRequestDto requestDto) {
+    @PostMapping("/signin") //로그인
+    public ResponseEntity<ApiResponseDto<TokenResponse>> login(@RequestBody SigninRequestDto requestDto) {
 
-        userService.login(requestDto);
-        return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.LOGIN_SUCCESS, null));
+        TokenResponse signinDto = userService.login(requestDto);
+
+        return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.LOGIN_SUCCESS, signinDto));
     }
 }

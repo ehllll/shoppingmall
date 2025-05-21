@@ -38,7 +38,7 @@ public class JwtUtil {
     public String createAccessToken(User user) {
         return Jwts.builder()
                 //토큰안에 사용자의 이메일 정보를 기록한다.
-                .claim("email", user.getEmail())
+                .claim("email", user.getUsername())
                 //토큰이 발급된 시각을 기록합니다.
                 .issuedAt(new Date(System.currentTimeMillis()))
 
@@ -60,7 +60,7 @@ public class JwtUtil {
 
         return Jwts.builder()
                 // 토큰안에 사용자 이메일 정보를 담음
-                .claim("email", user.getEmail())
+                .claim("email", user.getUsername())
 
                 //이 토큰이 언제 만료되는지(언제까지 쓸수 있는지) 설정
                 .expiration(new Date(System.currentTimeMillis() + refreshExpiration))
