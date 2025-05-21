@@ -4,6 +4,7 @@ import java.util.List;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,14 @@ public class StoreService {
 
 	private final StoreRepository storeRepository;
 
+
 	public List<Store> getFilteredStores(Long rating, String status) {
 		Pageable top10 = PageRequest.of(0, 10);
 		return storeRepository.findFilteredStores(rating, status, top10);
+	}
+
+
+	public Page<Store> getFilteredStoresPaged(Long rating, String status,Pageable pageable) {
+		return storeRepository.findFilteredStoresPaged(rating, status, pageable);
 	}
 }
