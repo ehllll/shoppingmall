@@ -2,8 +2,11 @@ package com.example.shoppingmall.domain.bookmark.service;
 import com.example.shoppingmall.domain.bookmark.dto.response.BookmarkResponseDto;
 import com.example.shoppingmall.domain.bookmark.entity.Bookmark;
 import com.example.shoppingmall.domain.bookmark.repository.BookmarkRepository;
+import com.example.shoppingmall.domain.error.CustomException;
+import com.example.shoppingmall.domain.error.ErrorCode;
 import com.example.shoppingmall.domain.store.entity.Store;
 import com.example.shoppingmall.domain.user.entity.User;
+import com.example.shoppingmall.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +27,9 @@ public class BookmarkService {
         }
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new RuntimeException("가게를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         Bookmark bookmark = new Bookmark(user, store);
         bookmarkRepository.save(bookmark);
