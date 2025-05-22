@@ -1,6 +1,6 @@
 package com.example.shoppingmall.domain.user.repository;
 
-import com.example.shoppingmall.domain.user.entity.RefreshToken;
+import com.example.shoppingmall.global.common.auth.entity.RefreshToken;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

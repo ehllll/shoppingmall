@@ -2,12 +2,12 @@ package com.example.shoppingmall.global.common.auth.service;
 
 import com.example.shoppingmall.global.common.auth.dto.request.SignInRequestDto;
 import com.example.shoppingmall.global.common.auth.dto.response.TokenResponse;
-import com.example.shoppingmall.domain.user.entity.RefreshToken;
+import com.example.shoppingmall.global.common.auth.entity.RefreshToken;
 import com.example.shoppingmall.domain.user.entity.User;
 import com.example.shoppingmall.domain.user.repository.RefreshTokenRepository;
 import com.example.shoppingmall.domain.user.repository.UserRepository;
 import com.example.shoppingmall.global.common.config.PasswordEncoder;
-import com.example.shoppingmall.global.common.util.JwtUtil;
+import com.example.shoppingmall.global.common.auth.jwt.JwtUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
