@@ -37,9 +37,9 @@ public class User extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "authority", nullable = false)
-	private UserAuthority userAuthority = UserAuthority.USER;
+	private UserRole userAuthority = UserRole.USER;
 
-	public User(String nickName, String email, String password, String address, UserAuthority userAuthority) {
+	public User(String nickName, String email, String password, String address, UserRole userAuthority) {
 		this.nickName = nickName;
 		this.username = email;
 		this.password = password;

@@ -1,5 +1,6 @@
-package com.example.shoppingmall.domain.user.entity;
+package com.example.shoppingmall.global.common.auth.entity;
 
+import com.example.shoppingmall.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
