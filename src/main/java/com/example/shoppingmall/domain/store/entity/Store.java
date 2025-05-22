@@ -53,4 +53,5 @@ public class Store {
 		this.status = status;
 		this.monitoringDate = monitoringDate;
 	}
+
 }

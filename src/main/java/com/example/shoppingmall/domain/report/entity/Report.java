@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+
 @Entity
 @Getter
 @Table(name = "report")
@@ -27,5 +28,10 @@ public class Report extends BaseEntity {
     private Store store;
 
 
-
+    // 신고생성
+    public Report(User user,Store store, String reason) {
+        this.store = store;
+        this.user = user;
+        this.reason = reason;
+    }
 }
