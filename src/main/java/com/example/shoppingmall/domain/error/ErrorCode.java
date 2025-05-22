@@ -42,8 +42,8 @@ public enum ErrorCode {
     // Report
     REPORT_NOT_FOUND(404, "Not Found", "RP001", "신고 내역을 찾을 수 없습니다."),
     ALREADY_REPORTED(409, "Conflict", "RP002", "이미 신고한 가게입니다."),
-    INVALID_REPORT_REASON(400, "Bad Request", "RP003", "유효하지 않은 신고 사유입니다.");
-
+    INVALID_REPORT_REASON(400, "Bad Request", "RP003", "유효하지 않은 신고 사유입니다."),
+    PENALIZED_STORE(403,"Forbidden","RP004", "신고 누적으로 이용이 제한된 가게입니다,");
 
 
 
