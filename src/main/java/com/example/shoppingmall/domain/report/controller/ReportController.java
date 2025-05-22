@@ -1,5 +1,6 @@
 package com.example.shoppingmall.domain.report.controller;
 
+import com.example.shoppingmall.domain.bookmark.controller.BaseController;
 import com.example.shoppingmall.domain.report.dto.request.CreateReportRequest;
 import com.example.shoppingmall.domain.report.dto.response.FindReportResponse;
 import com.example.shoppingmall.domain.report.service.ReportService;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class ReportController {
+public class ReportController extends BaseController {
 
     private final ReportService reportService;
 
