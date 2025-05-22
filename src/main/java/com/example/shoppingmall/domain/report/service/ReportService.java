@@ -1,5 +1,7 @@
 package com.example.shoppingmall.domain.report.service;
 
+import com.example.shoppingmall.domain.error.CustomException;
+import com.example.shoppingmall.domain.error.ErrorCode;
 import com.example.shoppingmall.domain.report.dto.request.CreateReportRequest;
 import com.example.shoppingmall.domain.report.dto.response.FindReportResponse;
 import com.example.shoppingmall.domain.report.entity.Report;
@@ -25,16 +27,16 @@ public class ReportService {
 
     public void createReport(Long userId ,Long storeId, CreateReportRequest request) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         Store store = storeRepository.findById(storeId)
-                .orElseThrow(()-> new RuntimeException("스토어를 찾을 수 없습니다."));
+                .orElseThrow(()-> new CustomException(ErrorCode.STORE_NOT_FOUND));
         Report report = new Report(user,store,request.getReason());
         reportRepository.save(report);
     }
 
     public List<FindReportResponse> findAllReport(Long storeId) {
         Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new RuntimeException("스토어를 찾을 수 없습니다."));
+                .orElseThrow(()-> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
 
         return reportRepository.findAllByStore(store)
