@@ -62,6 +62,11 @@ public class Review {
         this.deleted = false;
     }
 
+    public void update(String content, int rating) {
+        this.content = content;
+        this.rating = rating;
+    }
+
     // 소프트 딜리트 처리
     public void softDelete() {
         this.deleted = true;
