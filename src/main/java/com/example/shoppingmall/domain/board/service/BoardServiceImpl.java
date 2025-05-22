@@ -20,6 +20,8 @@ import com.example.shoppingmall.domain.board.entity.Board;
 import com.example.shoppingmall.domain.board.repository.BoardRepository;
 import com.example.shoppingmall.domain.store.entity.Store;
 import com.example.shoppingmall.domain.store.repository.StoreRepository;
+import com.example.shoppingmall.domain.user.entity.User;
+import com.example.shoppingmall.domain.user.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,9 +32,10 @@ public class BoardServiceImpl implements BoardService{
 	private final BoardRepository boardRepository;
 	private final StoreRepository storeRepository;
 	private final RedisTemplate<String, String> redisTemplate;
+	private final UserRepository userRepository;
 
 	@Override
-	public BoardResponseDto createPost(Long storeId, BoardRequestDto boardRequestDto) {
+	public BoardResponseDto createPost(Long storeId, Long userId, BoardRequestDto boardRequestDto) {
 
 		if(boardRequestDto.getTitle()==null || boardRequestDto.getTitle().isBlank()) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "제목은 필수입니다.");
@@ -45,8 +48,11 @@ public class BoardServiceImpl implements BoardService{
 		Store store = storeRepository.findById(storeId)
 			.orElseThrow(() -> new IllegalArgumentException("스토어를 찾을 수 없습니다."));
 
+		User user = userRepository.findById(userId)
+			.orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다"));
 
-		Board board = new Board(boardRequestDto.getTitle(), boardRequestDto.getContent());
+
+		Board board = new Board(boardRequestDto.getTitle(), boardRequestDto.getContent(), store, user);
 		Board saved = boardRepository.save(board);
 
 		return new BoardResponseDto(
@@ -59,7 +65,7 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public BoardResponseDto findById(Long id, Long storeId, Long userId) {
-		Board board = boardRepository.findByIdAndStoreId(id, storeId).orElseThrow(
+		Board board = boardRepository.findByIdAndStore_IdAndUser_Id(id, storeId, userId).orElseThrow(
 			() -> new RuntimeException("문의사항이 존재하지 않습니다")
 		);
 
@@ -79,11 +85,18 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public List<BoardResponseDto> getAll() {
-		List<Board> boardList = boardRepository.findAll();
+	public List<BoardResponseDto> getAllByStore(Long storeId) {
+		Store store = storeRepository.findById(storeId)
+			.orElseThrow(() -> new IllegalArgumentException("스토어를 찾을 수 없습니다."));
+
+		List<Board> boardList = boardRepository.findAllByStore(store);
 		List<BoardResponseDto> responseDtoList = new ArrayList<>();
+
 		for(Board board : boardList) {
-			BoardResponseDto boardResponseDto = new BoardResponseDto(board.getId(), board.getTitle(), board.getContent());
+			BoardResponseDto boardResponseDto = new BoardResponseDto(
+				board.getId(), board.getTitle(), board.getContent()
+			);
+
 			responseDtoList.add(boardResponseDto);
 		}
 		return responseDtoList;
@@ -101,7 +114,7 @@ public class BoardServiceImpl implements BoardService{
 
 
 	@Override
-	public void deletePost(Long storeId, Long id, BoardRequestDto boardRequestDto) {
+	public void deletePost(Long storeId, Long id) {
 		Board board = boardRepository.findById(id)
 			.orElseThrow(() -> new IllegalArgumentException("문의사항을 찾을 수 없습니다"));
 

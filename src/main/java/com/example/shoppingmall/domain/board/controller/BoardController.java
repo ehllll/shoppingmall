@@ -27,24 +27,24 @@ public class BoardController {
 
 	private final BoardService boardService;
 
-	@PostMapping("/stores/{storeId}/boards")
-	public ResponseEntity<BoardResponseDto> createPost(@PathVariable Long storeId, @RequestBody BoardRequestDto boardRequestDto) {
-		BoardResponseDto boardResponseDto = boardService.createPost(storeId, boardRequestDto);
+	@PostMapping("/stores/{storeId}/users/{userId}/boards")
+	public ResponseEntity<BoardResponseDto> createPost(@PathVariable Long storeId, @PathVariable Long userId, @RequestBody BoardRequestDto boardRequestDto) {
+		BoardResponseDto boardResponseDto = boardService.createPost(storeId, userId, boardRequestDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(boardResponseDto);
 	}
 
-	@GetMapping("/stores/{storeId}/boards/{boardId}")
-	public ResponseEntity<BoardResponseDto> findById(@PathVariable Long storeId , @PathVariable Long boardId, @RequestParam Long userId) {
-		BoardResponseDto boardResponseDto = boardService.findById(storeId, boardId, userId);
+	@GetMapping("/stores/{storeId}/users/{userId}/boards/{boardId}")
+	public ResponseEntity<BoardResponseDto> findById(@PathVariable Long boardId , @PathVariable Long storeId, @PathVariable Long userId) {
+		BoardResponseDto boardResponseDto = boardService.findById(boardId, storeId, userId);
 		return ResponseEntity.ok(boardResponseDto);
 	}
 
 	@GetMapping("/stores/{storeId}/boards")
-	public ResponseEntity<List<BoardResponseDto>> getAll() {
-		return ResponseEntity.ok(boardService.getAll());
+	public ResponseEntity<List<BoardResponseDto>> getAll(@PathVariable Long storeId) {
+		return ResponseEntity.ok(boardService.getAllByStore(storeId));
 	}
 
-	@PutMapping("/stores/{storeId}/boards/{boardId}}")
+	@PutMapping("/stores/{storeId}/boards/{boardId}")
 	public ResponseEntity<String> updatePost(@PathVariable Long storeId, @PathVariable Long boardId, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
 		boardService.updatePost(storeId, boardId, boardUpdateRequestDto);
 		return ResponseEntity.ok("문의사항 수정 완료");
@@ -52,8 +52,8 @@ public class BoardController {
 
 
 	@DeleteMapping("/stores/{storeId}/boards/{boardId}")
-	public ResponseEntity<String> deletePost(@PathVariable Long storeId, @PathVariable Long boardId, @RequestBody BoardRequestDto boardRequestDto) {
-		boardService.deletePost(storeId,boardId,boardRequestDto);
+	public ResponseEntity<String> deletePost(@PathVariable Long storeId, @PathVariable Long boardId) {
+		boardService.deletePost(storeId,boardId);
 		return ResponseEntity.ok("문의사항 삭제 완료");
 	}
 }
