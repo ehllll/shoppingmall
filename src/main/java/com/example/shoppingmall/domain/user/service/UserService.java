@@ -1,11 +1,18 @@
 package com.example.shoppingmall.domain.user.service;
 
+import com.example.shoppingmall.domain.user.dto.request.SignInRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.SignUpRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.UpdatePasswordRequestDto;
-import com.example.shoppingmall.domain.user.dto.response.SignUpResponseDto;
+import com.example.shoppingmall.domain.user.dto.response.TokenResponse;
+import com.example.shoppingmall.domain.user.entity.RefreshToken;
+import com.example.shoppingmall.domain.user.entity.User;
 
 public interface UserService {
-    SignUpResponseDto signUp(SignUpRequestDto requestDto);
+    TokenResponse signUp(SignUpRequestDto requestDto);
 
     void updatePassword(Long id, UpdatePasswordRequestDto requestDto);
+
+    TokenResponse signIn(SignInRequestDto requestDto);
+
+    void logout(String refreshToken);
 }
