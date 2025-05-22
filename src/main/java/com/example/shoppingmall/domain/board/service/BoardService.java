@@ -11,7 +11,8 @@ import com.example.shoppingmall.domain.board.dto.BoardUpdateRequestDto;
 public interface BoardService {
 	BoardResponseDto createPost(Long storeId, BoardRequestDto boardRequestDto);
 
-	BoardResponseDto findById(Long id);
+
+	BoardResponseDto findById(Long id, Long storeId, Long userId);
 
 	List<BoardResponseDto> getAll();
 
@@ -19,4 +20,6 @@ public interface BoardService {
 	void updatePost(Long storeId, Long id, BoardUpdateRequestDto boardUpdateRequestDto);
 
 	void deletePost(Long storeId, Long id, BoardRequestDto boardRequestDto);
+
+	List<Long> getTopRankedBoards();
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.shoppingmall.domain.board.dto.BoardRequestDto;
@@ -28,13 +29,13 @@ public class BoardController {
 
 	@PostMapping("/stores/{storeId}/boards")
 	public ResponseEntity<BoardResponseDto> createPost(@PathVariable Long storeId, @RequestBody BoardRequestDto boardRequestDto) {
-		BoardResponseDto boardResponseDto = BoardService.createPost(storeId, boardRequestDto);
+		BoardResponseDto boardResponseDto = boardService.createPost(storeId, boardRequestDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(boardResponseDto);
 	}
 
 	@GetMapping("/stores/{storeId}/boards/{boardId}")
-	public ResponseEntity<BoardResponseDto> findById(@PathVariable Long storeId , @PathVariable Long boardId) {
-		BoardResponseDto boardResponseDto = BoardService.findById(storeId, boardId);
+	public ResponseEntity<BoardResponseDto> findById(@PathVariable Long storeId , @PathVariable Long boardId, @RequestParam Long userId) {
+		BoardResponseDto boardResponseDto = boardService.findById(storeId, boardId, userId);
 		return ResponseEntity.ok(boardResponseDto);
 	}
 
@@ -45,14 +46,14 @@ public class BoardController {
 
 	@PutMapping("/stores/{storeId}/boards/{boardId}}")
 	public ResponseEntity<String> updatePost(@PathVariable Long storeId, @PathVariable Long boardId, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
-		BoardService.updatePost(storeId, boardId, boardUpdateRequestDto);
+		boardService.updatePost(storeId, boardId, boardUpdateRequestDto);
 		return ResponseEntity.ok("문의사항 수정 완료");
 	}
 
 
 	@DeleteMapping("/stores/{storeId}/boards/{boardId}")
 	public ResponseEntity<String> deletePost(@PathVariable Long storeId, @PathVariable Long boardId, @RequestBody BoardRequestDto boardRequestDto) {
-		BoardService.deletePost(storeId,boardId,boardRequestDto);
+		boardService.deletePost(storeId,boardId,boardRequestDto);
 		return ResponseEntity.ok("문의사항 삭제 완료");
 	}
 }
