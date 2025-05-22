@@ -49,17 +49,4 @@ public class Store {
 		this.status = status;
 		this.monitoringDate = monitoringDate;
 	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Store store = (Store) o;
-		return Objects.equals(id, store.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
 }
