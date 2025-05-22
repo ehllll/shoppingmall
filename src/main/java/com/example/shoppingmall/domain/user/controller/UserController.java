@@ -1,11 +1,8 @@
 package com.example.shoppingmall.domain.user.controller;
 
-import com.example.shoppingmall.domain.user.dto.request.SignInRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.SignUpRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.UpdatePasswordRequestDto;
-import com.example.shoppingmall.domain.user.dto.response.TokenResponse;
-import com.example.shoppingmall.domain.user.entity.RefreshToken;
-import com.example.shoppingmall.domain.user.entity.User;
+import com.example.shoppingmall.global.common.auth.dto.response.TokenResponse;
 import com.example.shoppingmall.domain.user.service.UserService;
 import com.example.shoppingmall.global.common.enums.SuccessCode;
 import com.example.shoppingmall.global.common.response.ApiResponseDto;
@@ -14,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auths")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -36,19 +33,5 @@ public class UserController {
         return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.USER_UPDATE_SUCCESS, null));
     }
 
-    @PostMapping("/signin") //로그인
-    public ResponseEntity<ApiResponseDto<TokenResponse>> signIn(@RequestBody SignInRequestDto requestDto) {
 
-        TokenResponse signinDto = userService.signIn(requestDto);
-
-        return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.LOGIN_SUCCESS, signinDto));
-    }
-
-    @PostMapping("/logout")
-    public ResponseEntity<ApiResponseDto<Void>> logout(@RequestBody String refreshToken ) {
-
-        userService.logout(refreshToken);
-
-        return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.LOGOUT_SUCCESS, null));
-    }
 }

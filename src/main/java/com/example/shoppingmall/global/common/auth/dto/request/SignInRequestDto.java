@@ -1,4 +1,4 @@
-package com.example.shoppingmall.domain.user.dto.request;
+package com.example.shoppingmall.global.common.auth.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
