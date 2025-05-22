@@ -113,4 +113,10 @@ public class JwtUtil {
                 .getPayload();
         return payload;
     }
+
+    // userId 꺼내는 메서드
+    public Long getUserIdFromToken(String token) {
+        Claims claims = getClaimsToken(token);
+        return claims.get("userId", Long.class); // userId 꺼내기
+    }
 }

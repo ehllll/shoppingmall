@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping
 @RequiredArgsConstructor
 
-public class BookmarkController {
+public class BookmarkController extends BaseController {
 
     private final BookmarkService bookmarkService;
 
