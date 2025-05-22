@@ -56,5 +56,11 @@ public class BoardController {
 		boardService.deletePost(storeId,boardId);
 		return ResponseEntity.ok("문의사항 삭제 완료");
 	}
+
+	@GetMapping("/boards/ranking")
+	public ResponseEntity<List<BoardResponseDto>> getTopBoards() {
+		List<BoardResponseDto> topBoards = boardService.getTopRankedBoard();
+		return ResponseEntity.ok(topBoards);
+	}
 }
 

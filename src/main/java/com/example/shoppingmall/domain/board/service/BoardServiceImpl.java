@@ -132,5 +132,29 @@ public class BoardServiceImpl implements BoardService{
 			.collect(Collectors.toList());
 	}
 
+
+	@Override
+	public List<BoardResponseDto> getTopRankedBoard() {
+		Set<ZSetOperations.TypedTuple<String>> top = redisTemplate.opsForZSet()
+			.reverseRangeWithScores("board:ranking", 0, 9);
+
+		List<Long> boardIds = top.stream()
+			.map(ZSetOperations.TypedTuple::getValue)
+			.map(Long::valueOf)
+			.toList();
+
+		List<Board> boards = boardRepository.findAllById(boardIds);
+
+
+		//조회된 boardId 순서와 일치시키기 위해 정렬
+		return boardIds.stream()
+			.map(id -> boards.stream()
+			.filter(b -> b.getId().equals(id))
+			.findFirst()
+			.map(BoardResponseDto::new)
+			.orElse(null))
+			.filter(dto -> dto != null)
+			.collect(Collectors.toList());
+	}
 }
 
