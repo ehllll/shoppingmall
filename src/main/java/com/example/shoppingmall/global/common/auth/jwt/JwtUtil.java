@@ -41,11 +41,11 @@ public class JwtUtil {
      * Access Token 을 만들어주는 메서드이다.
      * 사용자가 인증(로그인)했다는 것을 증명하는 하나의 전자서명 같은것이라 보면 된다.
      * */
-    public String createAccessToken(User user, UserRole role) {
+    public String createAccessToken(User user) {
         return Jwts.builder()
                 //토큰안에 사용자의 이메일 정보를 기록한다.
                 .claim("username", user.getUsername())
-                .claim("role",role)
+                .claim("role", user.getUserAuthority())
                 //토큰이 발급된 시각을 기록합니다.
                 .setIssuedAt(new Date(System.currentTimeMillis()))
 
