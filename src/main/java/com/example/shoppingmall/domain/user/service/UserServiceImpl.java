@@ -3,8 +3,6 @@ package com.example.shoppingmall.domain.user.service;
 import com.example.shoppingmall.domain.user.dto.request.SignUpRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.UpdatePasswordRequestDto;
 import com.example.shoppingmall.domain.user.dto.response.SignUpResponseDto;
-import com.example.shoppingmall.global.common.auth.dto.response.TokenResponse;
-import com.example.shoppingmall.global.common.auth.entity.RefreshToken;
 import com.example.shoppingmall.domain.user.entity.User;
 import com.example.shoppingmall.domain.user.repository.RefreshTokenRepository;
 import com.example.shoppingmall.domain.user.repository.UserRepository;

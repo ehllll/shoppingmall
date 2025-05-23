@@ -42,7 +42,6 @@ public class JwtFilter extends GenericFilterBean {
         log.debug("추출된 JWT: {}", jwt); // null인지 확인
         String extractTokon = jwtUtil.extractToken(httpRequest);
 
-        String requestURI = httpRequest.getRequestURI();
 
         //추출한 jwt값이 비어있지 않는지(null,공백이 아닌지)확인
         //비어있으면 false
