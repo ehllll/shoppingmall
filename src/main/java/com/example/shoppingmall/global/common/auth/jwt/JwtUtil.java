@@ -46,6 +46,7 @@ public class JwtUtil {
                 //토큰안에 사용자의 이메일 정보를 기록한다.
                 .claim("username", user.getUserName())
                 .claim("role", user.getUserAuthority().name())
+
                 //토큰이 발급된 시각을 기록합니다.
                 .setIssuedAt(new Date(System.currentTimeMillis()))
 

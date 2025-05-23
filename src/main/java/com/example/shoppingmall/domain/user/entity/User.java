@@ -37,7 +37,7 @@ public class User extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "authority", nullable = false)
-	private UserRole userAuthority = UserRole.USER;
+	private UserRole userAuthority;
 
 	public User(String nickName,String userName, String password, String address, UserRole userAuthority) {
 		this.nickName = nickName;
@@ -50,7 +50,4 @@ public class User extends BaseEntity {
 	public void updatePassword(String newPassword) {
 		this.password = newPassword;
 	}
-
-
-
 }

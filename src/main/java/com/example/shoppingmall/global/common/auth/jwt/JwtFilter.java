@@ -40,13 +40,16 @@ public class JwtFilter extends GenericFilterBean {
         //jwt토큰을 추출한다.
         String jwt = jwtUtil.extractToken(httpRequest);
         log.debug("추출된 JWT: {}", jwt); // null인지 확인
+        String extractTokon = jwtUtil.extractToken(httpRequest);
 
 
         //추출한 jwt값이 비어있지 않는지(null,공백이 아닌지)확인
         //비어있으면 false
+
         if (jwt != null && !jwt.isBlank() && jwtUtil.isvalidRefreshToken(jwt)) {
 
-            UserAuth userAuth = jwtUtil.extractUserAuth(jwt);
+
+            UserAuth userAuth = jwtUtil.extractUserAuth(extractTokon);
 
             List<SimpleGrantedAuthority> authorities = List.of(
                     new SimpleGrantedAuthority("ROLE_" + userAuth.getRole().name())

@@ -3,7 +3,6 @@ package com.example.shoppingmall.global.common.auth.entity;
 import com.example.shoppingmall.domain.user.entity.User;
 import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,5 +29,9 @@ public class RefreshToken {
     public RefreshToken(User user, String token) {
         this.token = token;
         this.user = user;
+    }
+
+    public void updateRefreshToken(String token) {
+        this.token = token;
     }
 }

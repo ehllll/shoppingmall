@@ -6,14 +6,14 @@ import lombok.Getter;
 @Getter
 public class SignInRequestDto {
 
-	@NotBlank
-	private final String username;
+    @NotBlank
+    private final String username;
 
-	@NotBlank
-	private final String password;
+    @NotBlank
+    private final String password;
 
-	public SignInRequestDto(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
+    public SignInRequestDto(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

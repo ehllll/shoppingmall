@@ -7,11 +7,11 @@ import lombok.Getter;
 @Builder
 public class TokenResponse {
 
-	private final String accessToken;
-	private final String refreshToken;
+    private final String accessToken;
+    private final String refreshToken;
 
-	public TokenResponse(String accessToken, String refreshToken) {
-		this.accessToken = accessToken;
-		this.refreshToken = refreshToken;
-	}
+    public TokenResponse(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+    }
 }

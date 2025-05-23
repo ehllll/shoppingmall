@@ -19,6 +19,7 @@ import com.example.shoppingmall.global.common.auth.jwt.JwtUtil;
 @EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
 	private final JwtUtil jwtUtil; // JWT 유틸 주입
 
 	@Bean

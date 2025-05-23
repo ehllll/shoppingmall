@@ -11,16 +11,16 @@ public class SignUpResponseDto {
 
 
     private final String nickname;
-    private final String email;
+    private final String username;
     private final String address;
     private final UserRole userAuthority;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private final LocalDateTime updateAt;
 
 
-    public SignUpResponseDto(String nickname, String email, String address, UserRole userAuthority, LocalDateTime updateAt) {
+    public SignUpResponseDto(String nickname, String username, String address, UserRole userAuthority, LocalDateTime updateAt) {
         this.nickname = nickname;
-        this.email = email;
+        this.username = username;
         this.address = address;
         this.userAuthority = userAuthority;
         this.updateAt = updateAt;
