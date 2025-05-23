@@ -24,7 +24,6 @@ public interface BoardService {
 
 	void deletePost(Long storeId, Long id);
 
-	List<Long> getTopRankedBoards();
 
 	List<BoardResponseDto> getTopRankedBoard();
 }

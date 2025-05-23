@@ -121,16 +121,6 @@ public class BoardServiceImpl implements BoardService{
 		boardRepository.delete(board);
 	}
 
-	@Override
-	public List<Long> getTopRankedBoards() {
-		Set<ZSetOperations.TypedTuple<String>> top = redisTemplate.opsForZSet()
-			.reverseRangeWithScores("board:ranking", 0, 9);
-
-		return top.stream()
-			.map(ZSetOperations.TypedTuple::getValue)
-			.map(Long::valueOf)
-			.collect(Collectors.toList());
-	}
 
 
 	@Override
