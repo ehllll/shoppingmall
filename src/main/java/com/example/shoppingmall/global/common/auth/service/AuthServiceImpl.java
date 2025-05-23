@@ -28,10 +28,10 @@ public class AuthServiceImpl implements AuthService {
     public TokenResponse signIn(SignInRequestDto requestDto) {
 
         //유저가 있는지 찾는다
-        User user = userRepository.findByUsername(requestDto.username()).orElseThrow(() -> new IllegalArgumentException("존재하지 않은 사용자입니다."));
+        User user = userRepository.findByUsername(requestDto.getUsername()).orElseThrow(() -> new IllegalArgumentException("존재하지 않은 사용자입니다."));
 
         //만약 요청한 비밀번호와 유져의 비밀번호가 같지 않다면? 예외처리를 한다.
-        if (!passwordEncoder.matches(requestDto.password(), user.getPassword())) {
+        if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
