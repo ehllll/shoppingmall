@@ -9,7 +9,6 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.sql.Date;
@@ -43,9 +42,10 @@ public class JwtUtil {
      * */
     public String createAccessToken(User user) {
         return Jwts.builder()
+                .setSubject(String.valueOf(user.getId()))
                 //토큰안에 사용자의 이메일 정보를 기록한다.
-                .claim("username", user.getUsername())
-                .claim("role", user.getUserAuthority())
+                .claim("username", user.getUserName())
+                .claim("role", user.getUserAuthority().name())
                 //토큰이 발급된 시각을 기록합니다.
                 .setIssuedAt(new Date(System.currentTimeMillis()))
 
@@ -67,7 +67,7 @@ public class JwtUtil {
 
         return Jwts.builder()
                 // 토큰안에 사용자 이메일 정보를 담음
-                .claim("username", user.getUsername())
+                .claim("username", user.getUserName())
 
                 //이 토큰이 언제 만료되는지(언제까지 쓸수 있는지) 설정
                 .setExpiration(new Date(System.currentTimeMillis() + refreshExpiration))

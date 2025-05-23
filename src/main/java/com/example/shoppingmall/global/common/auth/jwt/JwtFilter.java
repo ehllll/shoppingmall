@@ -44,7 +44,7 @@ public class JwtFilter extends GenericFilterBean {
 
         //추출한 jwt값이 비어있지 않는지(null,공백이 아닌지)확인
         //비어있으면 false
-        if (jwtUtil.isvalidRefreshToken(jwt)) {
+        if (jwt != null && !jwt.isBlank() && jwtUtil.isvalidRefreshToken(jwt)) {
 
             UserAuth userAuth = jwtUtil.extractUserAuth(jwt);
 
