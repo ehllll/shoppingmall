@@ -1,5 +1,6 @@
 package com.example.shoppingmall.global.common.auth.service;
 
+import com.example.shoppingmall.domain.user.entity.UserRole;
 import com.example.shoppingmall.global.common.auth.dto.request.SignInRequestDto;
 import com.example.shoppingmall.global.common.auth.dto.response.TokenResponse;
 import com.example.shoppingmall.global.common.auth.entity.RefreshToken;
