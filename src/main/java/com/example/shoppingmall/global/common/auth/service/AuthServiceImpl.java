@@ -51,7 +51,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void logout(String refreshToken) {
 
-        RefreshToken findRefreshToken = refreshTokenRepository.findByRefreshToken(refreshToken).orElseThrow(() -> new IllegalArgumentException("로그아웃 되었습니다"));
+        RefreshToken findRefreshToken = refreshTokenRepository.findByToken(refreshToken).orElseThrow(() -> new IllegalArgumentException("로그아웃 되었습니다"));
 
         refreshTokenRepository.delete(findRefreshToken);
     }

@@ -29,8 +29,17 @@ public class JwtFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
+        String requestURI = httpRequest.getRequestURI();
+        log.debug("요청 URI: {}", requestURI);
+        log.debug("isWhiteList: {}", isWhiteList(requestURI));
+        if (isWhiteList(requestURI)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         //jwt토큰을 추출한다.
+        String jwt = jwtUtil.extractToken(httpRequest);
+        log.debug("추출된 JWT: {}", jwt); // null인지 확인
         String extractTokon = jwtUtil.extractToken(httpRequest);
 
         String requestURI = httpRequest.getRequestURI();

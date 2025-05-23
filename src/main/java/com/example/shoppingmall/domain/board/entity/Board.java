@@ -1,6 +1,9 @@
 package com.example.shoppingmall.domain.board.entity;
 
+import com.example.shoppingmall.domain.board.dto.BoardRequestDto;
 import com.example.shoppingmall.domain.board.dto.BoardUpdateRequestDto;
+import com.example.shoppingmall.domain.store.entity.Store;
+import com.example.shoppingmall.domain.user.entity.User;
 import com.example.shoppingmall.global.common.entity.BaseEntity;
 
 import jakarta.persistence.Entity;
@@ -27,14 +30,26 @@ public class Board extends BaseEntity {
 	private String title;
 	private String content;
 
+	private int viewCount;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "store_id")
-	private Board board;
+	private Store store;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 
 
-	public Board(String title, String content) {
+	public Board(String title, String content, Store store, User user) {
 		this.title = title;
 		this.content = content;
+		this.store = store;
+		this.user = user;
+	}
+
+	public Board createBoard(BoardRequestDto dto, Store store, User user) {
+		return new Board(dto.getTitle(), dto.getContent(), store, user);
 	}
 
 	public void updatedAt(BoardUpdateRequestDto boardUpdateRequestDto) {

@@ -13,7 +13,6 @@ import com.example.shoppingmall.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,7 +36,7 @@ public class ReportService {
         if(alreadyReported){
             throw new CustomException(ErrorCode.ALREADY_REPORTED);
         }
-        int reportCount = reportRepository.countByStoreid(storeId);
+        int reportCount = reportRepository.countByStore_Id(storeId);
         if(reportCount >= 5){
             throw new CustomException(ErrorCode.PENALIZED_STORE);
         }
