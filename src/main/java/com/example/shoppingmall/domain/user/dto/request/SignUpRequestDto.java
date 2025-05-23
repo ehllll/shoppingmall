@@ -13,10 +13,10 @@ public class SignUpRequestDto {
     private final UserRole userAuthority;
 
 
-    public SignUpRequestDto(String nickname, String email, String password, String address, UserRole userAuthority) {
+    public SignUpRequestDto(String nickname, String username, String password, String address, UserRole userAuthority) {
         this.nickname = nickname;
-        this.username = email;
-        this.password = password;
+        this.username = username;
+		this.password = password;
         this.address = address;
         this.userAuthority = userAuthority;
     }

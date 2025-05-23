@@ -16,5 +16,5 @@ public interface ReportRepository extends JpaRepository<Report,Long> {
 
     boolean existsByUserAndStore(User user, Store store);
 
-    int countByStoreid(Long storeId);
+    int countByStore_Id(Long storeId);
 }

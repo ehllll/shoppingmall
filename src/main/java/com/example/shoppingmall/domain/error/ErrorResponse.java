@@ -7,18 +7,26 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-@Builder
-@JsonInclude(JsonInclude.Include.NON_NULL) // null 값은 json에 포함하지 않음
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorResponse {
 
-    private final LocalDateTime timestamp = LocalDateTime.now();
-    private final int status; //상태코드
-    private final String error; //상태코드 메세지
+    private final LocalDateTime timestamp;
+    private final int status;
+    private final String error;
     private final String message;
 
     public ErrorResponse(ErrorCode errorCode) {
+        this.timestamp = LocalDateTime.now();
         this.status = errorCode.getStatus();
         this.error = errorCode.getError();
         this.message = errorCode.getMessage();
+    }
+
+    @Builder
+    public ErrorResponse(LocalDateTime timestamp, int status, String error, String message) {
+        this.timestamp = timestamp;
+        this.status = status;
+        this.error = error;
+        this.message = message;
     }
 }

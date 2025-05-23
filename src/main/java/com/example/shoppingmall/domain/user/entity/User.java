@@ -26,8 +26,8 @@ public class User extends BaseEntity {
 	@Column(nullable = false)
 	private String nickName;
 
-	@Column(nullable = false, unique = true)
-	private String username;
+	@Column(name="user_name",nullable = false)
+	private String userName;
 
 	@Column(nullable = false)
 	private String password;
@@ -37,11 +37,11 @@ public class User extends BaseEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "authority", nullable = false)
-	private UserRole userAuthority = UserRole.USER;
+	private UserRole userAuthority;
 
-	public User(String nickName, String email, String password, String address, UserRole userAuthority) {
+	public User(String nickName,String userName, String password, String address, UserRole userAuthority) {
 		this.nickName = nickName;
-		this.username = email;
+		this.userName = userName;
 		this.password = password;
 		this.address = address;
 		this.userAuthority = userAuthority;
@@ -50,7 +50,4 @@ public class User extends BaseEntity {
 	public void updatePassword(String newPassword) {
 		this.password = newPassword;
 	}
-
-
-
 }

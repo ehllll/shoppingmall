@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.shoppingmall.domain.board.dto.BoardRequestDto;
@@ -26,34 +27,40 @@ public class BoardController {
 
 	private final BoardService boardService;
 
-	@PostMapping("/stores/{storeId}/boards")
-	public ResponseEntity<BoardResponseDto> createPost(@PathVariable Long storeId, @RequestBody BoardRequestDto boardRequestDto) {
-		BoardResponseDto boardResponseDto = BoardService.createPost(storeId, boardRequestDto);
+	@PostMapping("/stores/{storeId}/users/{userId}/boards")
+	public ResponseEntity<BoardResponseDto> createPost(@PathVariable Long storeId, @PathVariable Long userId, @RequestBody BoardRequestDto boardRequestDto) {
+		BoardResponseDto boardResponseDto = boardService.createPost(storeId, userId, boardRequestDto);
 		return ResponseEntity.status(HttpStatus.CREATED).body(boardResponseDto);
 	}
 
-	@GetMapping("/stores/{storeId}/boards/{boardId}")
-	public ResponseEntity<BoardResponseDto> findById(@PathVariable Long storeId , @PathVariable Long boardId) {
-		BoardResponseDto boardResponseDto = BoardService.findById(storeId, boardId);
+	@GetMapping("/stores/{storeId}/users/{userId}/boards/{boardId}")
+	public ResponseEntity<BoardResponseDto> findById(@PathVariable Long boardId , @PathVariable Long storeId, @PathVariable Long userId) {
+		BoardResponseDto boardResponseDto = boardService.findById(boardId, storeId, userId);
 		return ResponseEntity.ok(boardResponseDto);
 	}
 
 	@GetMapping("/stores/{storeId}/boards")
-	public ResponseEntity<List<BoardResponseDto>> getAll() {
-		return ResponseEntity.ok(boardService.getAll());
+	public ResponseEntity<List<BoardResponseDto>> getAll(@PathVariable Long storeId) {
+		return ResponseEntity.ok(boardService.getAllByStore(storeId));
 	}
 
-	@PutMapping("/stores/{storeId}/boards/{boardId}}")
+	@PutMapping("/stores/{storeId}/boards/{boardId}")
 	public ResponseEntity<String> updatePost(@PathVariable Long storeId, @PathVariable Long boardId, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
-		BoardService.updatePost(storeId, boardId, boardUpdateRequestDto);
+		boardService.updatePost(storeId, boardId, boardUpdateRequestDto);
 		return ResponseEntity.ok("문의사항 수정 완료");
 	}
 
 
 	@DeleteMapping("/stores/{storeId}/boards/{boardId}")
-	public ResponseEntity<String> deletePost(@PathVariable Long storeId, @PathVariable Long boardId, @RequestBody BoardRequestDto boardRequestDto) {
-		BoardService.deletePost(storeId,boardId,boardRequestDto);
+	public ResponseEntity<String> deletePost(@PathVariable Long storeId, @PathVariable Long boardId) {
+		boardService.deletePost(storeId,boardId);
 		return ResponseEntity.ok("문의사항 삭제 완료");
+	}
+
+	@GetMapping("/boards/ranking")
+	public ResponseEntity<List<BoardResponseDto>> getTopBoards() {
+		List<BoardResponseDto> topBoards = boardService.getTopRankedBoard();
+		return ResponseEntity.ok(topBoards);
 	}
 }
 

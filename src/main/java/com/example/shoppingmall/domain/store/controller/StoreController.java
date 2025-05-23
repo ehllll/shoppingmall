@@ -25,15 +25,8 @@ public class StoreController {
 
 	private final StoreService storeService;
 
-	@PostMapping("/delete")
-	public ResponseEntity<String> insertCsv(){
-		String filePath = "src/main/resources/stores.csv"; // 또는 절대 경로
-		storeService.resetStores();
-		return new ResponseEntity<>("입력완료",HttpStatus.OK);
-	}
-
 	@PostMapping("/collection")
-	public ResponseEntity<String> insertCsv_v2(){
+	public ResponseEntity<String> insertCsv(){
 		System.out.println("INSERT 시작");
 		String filePath = "src/main/resources/stores.csv"; // 또는 절대 경로
 		storeService.importCsv(filePath);
