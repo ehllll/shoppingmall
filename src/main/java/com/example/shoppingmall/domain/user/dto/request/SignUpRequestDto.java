@@ -1,6 +1,6 @@
 package com.example.shoppingmall.domain.user.dto.request;
 
-import com.example.shoppingmall.domain.user.entity.UserAuthority;
+import com.example.shoppingmall.domain.user.entity.UserRole;
 import lombok.Getter;
 
 @Getter
@@ -10,10 +10,10 @@ public class SignUpRequestDto {
     private final String username;
     private final String password;
     private final String address;
-    private final UserAuthority userAuthority;
+    private final UserRole userAuthority;
 
 
-    public SignUpRequestDto(String nickname, String email, String password, String address, UserAuthority userAuthority) {
+    public SignUpRequestDto(String nickname, String email, String password, String address, UserRole userAuthority) {
         this.nickname = nickname;
         this.username = email;
         this.password = password;

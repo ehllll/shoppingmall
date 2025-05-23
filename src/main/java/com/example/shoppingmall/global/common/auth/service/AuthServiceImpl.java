@@ -2,12 +2,12 @@ package com.example.shoppingmall.global.common.auth.service;
 
 import com.example.shoppingmall.global.common.auth.dto.request.SignInRequestDto;
 import com.example.shoppingmall.global.common.auth.dto.response.TokenResponse;
-import com.example.shoppingmall.domain.user.entity.RefreshToken;
+import com.example.shoppingmall.global.common.auth.entity.RefreshToken;
 import com.example.shoppingmall.domain.user.entity.User;
 import com.example.shoppingmall.domain.user.repository.RefreshTokenRepository;
 import com.example.shoppingmall.domain.user.repository.UserRepository;
 import com.example.shoppingmall.global.common.config.PasswordEncoder;
-import com.example.shoppingmall.global.common.util.JwtUtil;
+import com.example.shoppingmall.global.common.auth.jwt.JwtUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -27,10 +27,10 @@ public class AuthServiceImpl implements AuthService {
     public TokenResponse signIn(SignInRequestDto requestDto) {
 
         //유저가 있는지 찾는다
-        User user = userRepository.findByUsername(requestDto.username()).orElseThrow(() -> new IllegalArgumentException("존재하지 않은 사용자입니다."));
+        User user = userRepository.findByUsername(requestDto.getUsername()).orElseThrow(() -> new IllegalArgumentException("존재하지 않은 사용자입니다."));
 
         //만약 요청한 비밀번호와 유져의 비밀번호가 같지 않다면? 예외처리를 한다.
-        if (!passwordEncoder.matches(requestDto.password(), user.getPassword())) {
+        if (!passwordEncoder.matches(requestDto.getPassword(), user.getPassword())) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
@@ -70,7 +70,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public void logout(String refreshToken) {
 
-        RefreshToken findRefreshToken = refreshTokenRepository.findByRefreshToken(refreshToken).orElseThrow(() -> new IllegalArgumentException("로그아웃 되었습니다"));
+        RefreshToken findRefreshToken = refreshTokenRepository.findByToken(refreshToken).orElseThrow(() -> new IllegalArgumentException("로그아웃 되었습니다"));
 
         refreshTokenRepository.delete(findRefreshToken);
     }

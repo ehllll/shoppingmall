@@ -5,6 +5,7 @@ import com.example.shoppingmall.domain.bookmark.repository.BookmarkRepository;
 import com.example.shoppingmall.domain.error.CustomException;
 import com.example.shoppingmall.domain.error.ErrorCode;
 import com.example.shoppingmall.domain.store.entity.Store;
+import com.example.shoppingmall.domain.store.repository.StoreRepository;
 import com.example.shoppingmall.domain.user.entity.User;
 import com.example.shoppingmall.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -43,9 +44,8 @@ public class BookmarkService {
             Store store = bookmark.getStore();
             BookmarkResponseDto dto = new BookmarkResponseDto(
                     store.getId(),
-                    store.getName(),
-                    store.getCreatedAt(),
-                    store.getaddress()
+                    store.getStoreName(),
+                    bookmark.getCreatedAt()
             );
             result.add(dto);
         }

@@ -5,13 +5,13 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public record TokenResponse(String accessToken, String refreshToken) {
+public class TokenResponse {
 
-    /*
-    record 클래스의 특성
-    record의 필드는 암묵적으로 private, final로 선언이 된다.
-    자동 생성되는 요소:
-    생성자 (Canonical Constructor)
-    toString(), equals() 및 hashCode() 메서드
-    * */
+	private final String accessToken;
+	private final String refreshToken;
+
+	public TokenResponse(String accessToken, String refreshToken) {
+		this.accessToken = accessToken;
+		this.refreshToken = refreshToken;
+	}
 }
