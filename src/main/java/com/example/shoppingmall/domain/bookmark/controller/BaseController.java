@@ -1,6 +1,7 @@
 package com.example.shoppingmall.domain.bookmark.controller;
 
-import com.example.shoppingmall.global.common.util.JwtUtil;
+
+import com.example.shoppingmall.global.common.auth.jwt.JwtUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 

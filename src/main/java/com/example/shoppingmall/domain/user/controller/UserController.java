@@ -2,6 +2,7 @@ package com.example.shoppingmall.domain.user.controller;
 
 import com.example.shoppingmall.domain.user.dto.request.SignUpRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.UpdatePasswordRequestDto;
+import com.example.shoppingmall.domain.user.dto.response.SignUpResponseDto;
 import com.example.shoppingmall.global.common.auth.dto.response.TokenResponse;
 import com.example.shoppingmall.domain.user.service.UserService;
 import com.example.shoppingmall.global.common.enums.SuccessCode;
@@ -18,11 +19,11 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup") //회원가입
-    public ResponseEntity<ApiResponseDto<TokenResponse>> signUp(@RequestBody SignUpRequestDto dto) {
+    public ResponseEntity<ApiResponseDto<SignUpResponseDto>> signUp(@RequestBody SignUpRequestDto dto) {
 
-        TokenResponse tokenResponse = userService.signUp(dto);
+        SignUpResponseDto signUpResponseDto = userService.signUp(dto);
 
-        return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.USER_CREATE_SUCCESS, tokenResponse));
+        return ResponseEntity.ok(ApiResponseDto.success(SuccessCode.USER_CREATE_SUCCESS,signUpResponseDto));
     }
 
     @PutMapping("/{id}") //비밀번호 업데이트

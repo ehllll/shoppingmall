@@ -2,6 +2,7 @@ package com.example.shoppingmall.domain.user.service;
 
 import com.example.shoppingmall.domain.user.dto.request.SignUpRequestDto;
 import com.example.shoppingmall.domain.user.dto.request.UpdatePasswordRequestDto;
+import com.example.shoppingmall.domain.user.dto.response.SignUpResponseDto;
 import com.example.shoppingmall.global.common.auth.dto.response.TokenResponse;
 import com.example.shoppingmall.global.common.auth.entity.RefreshToken;
 import com.example.shoppingmall.domain.user.entity.User;
@@ -15,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
+
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +30,11 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override // 회원가입
-    public TokenResponse signUp(SignUpRequestDto requestDto) {
+    public SignUpResponseDto signUp(SignUpRequestDto requestDto) {
 
-        //비밀번호가 존재하면?-->예외처리  (repository단에서 메서드를 하나 만들어서 사용한다.)
+        //아이디가 존재하면?-->예외처리  (repository단에서 메서드를 하나 만들어서 사용한다.)
         if (userRepository.existsByUsername(requestDto.getUsername())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 존재하는 이메일입니다.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이미 존재하는 아이디입니다.");
         }
 
         //요청해온 비밀번호 암호화 시킨다.
@@ -44,22 +47,11 @@ public class UserServiceImpl implements UserService {
                 , requestDto.getAddress()
                 , requestDto.getUserAuthority());
 
-        //accessToken, refreshToken 을 발급한다.
-        String accessToken = jwtUtil.createAccessToken(user);
-        String refreshToken = jwtUtil.createRefreshToken(user);
-
-        //생성한 RefreshToken을 객체에 넣어준다.
-        RefreshToken newRefreshToken = new RefreshToken(user, refreshToken);
-
         //user 정보를 DB에 넣어준다.
-        userRepository.save(user);
-
-        //RefreshToken을  DB에 넣어준다.
-       refreshTokenRepository.save(newRefreshToken);
-
+        User saveUser = userRepository.save(user);
 
         //DB에 있는 데이터를 꺼내서
-        return new TokenResponse(accessToken, refreshToken);
+        return new SignUpResponseDto(saveUser.getNickName(),saveUser.getUsername(),saveUser.getAddress(),saveUser.getUserAuthority(), LocalDateTime.now());
     }
 
     @Transactional
@@ -78,8 +70,4 @@ public class UserServiceImpl implements UserService {
         }
         user.updatePassword(requestDto.getPassword());
     }
-
-
-
-
 }

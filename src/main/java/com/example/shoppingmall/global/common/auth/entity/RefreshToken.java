@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 //리프레쉬 토큰을 엔티티로 만들어 사용자와 맵핑해준다.
 @Entity
 @NoArgsConstructor
-@RequiredArgsConstructor
+@Table(name = "refreshToken")
 @Getter
 public class RefreshToken {
 
@@ -28,5 +28,9 @@ public class RefreshToken {
     public RefreshToken(User user, String token) {
         this.token = token;
         this.user = user;
+    }
+
+    public void updateRefreshToken(String token) {
+        this.token = token;
     }
 }
