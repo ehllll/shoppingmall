@@ -38,9 +38,11 @@ public class StoreService {
 	@PersistenceContext
 	private EntityManager em;
 
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public void resetStores() {
-		em.createNativeQuery("TRUNCATE TABLE stores").executeUpdate(); // ID도 1로 초기화됨
+		em.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0").executeUpdate();
+		em.createNativeQuery("TRUNCATE TABLE stores").executeUpdate();
+		em.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1").executeUpdate(); // ID도 1로 초기화됨
 	}
 
 	@Transactional
